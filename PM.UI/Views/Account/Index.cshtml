@@ -1,0 +1,6 @@
+﻿@{
+    if (Context.Request.QueryString.Value is not null && Context.Request.QueryString.Value.Contains("?hash"))
+    {
+        Layout = null;
+    }
+}

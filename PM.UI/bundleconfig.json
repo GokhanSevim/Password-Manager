@@ -1,0 +1,32 @@
+[
+  {
+    "outputFileName": "wwwroot/js/url-routing.min.js",
+    "inputFiles": [
+      "wwwroot/js/url-routing.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/service-workes.min.js",
+    "inputFiles": [
+      "wwwroot/js/service-workes.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/sidebar-nav.min.js",
+    "inputFiles": [
+      "wwwroot/js/sidebar-nav.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dashboard.min.js",
+    "inputFiles": [
+      "wwwroot/js/dashboard.js"
+    ]
+  }
+]

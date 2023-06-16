@@ -1,0 +1,103 @@
+﻿@model CryptController
+@{
+	ViewData["Title"] = "Banka Hesabı Saklama Alanı";
+
+	if (Context.Request.QueryString.Value is not null && Context.Request.QueryString.Value.Contains("?hash"))
+	{
+		Layout = null;
+	}
+}
+
+<div class="mb-2">
+	<div class="d-flex align-items-center">
+		<nav aria-label="breadcrumb" class="mr-3">
+			<h1 class="h6" data-value="title">@ViewData["Title"]</h1>
+			<ol class="breadcrumb bg-transparent small p-0">
+				<li class="breadcrumb-item"><a href="/" url-push="true">Dashboard</a></li>
+				<li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+			</ol>
+		</nav>
+		<div class="ml-auto">
+			<div class="d-flex justify-content-center">
+				<div class="delete-item-block mr-3 d-none">
+					<strong>0</strong> öğe seçili
+					<button id="delete-item" type="button" class="btn btn-outline-danger ml-2" data-post-url="/api/bankAccount/delete/" aria-label="Sil">
+						<i class="far fa-trash-alt"></i> Sil
+					</button>
+				</div>
+				<button type="button" class="btn btn-outline-secondary mr-2" data-toggle="tooltip" data-placement="top" title="Yeni" onclick="$.OpenModalPage('/bankAccount/')" aria-label="Yeni">
+					<i class="fa fa-plus"></i>
+				</button>
+				<button type="button" class="btn btn-outline-secondary mr-2" data-target="grid-all-select" data-toggle="tooltip" data-placement="top" title="Tümü Seç" aria-label="Seç">
+					<i class="fas fa-check-square"></i>
+				</button>
+				<button type="button" class="btn btn-outline-secondary" data-target="grid-collapse" data-toggle="tooltip" data-placement="top" title="Daralt/Genişlet" aria-label="Genişlet">
+					<i class="fas fa-angle-double-up"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="grid-content" class="card">
+	<div class="card-body">
+		@foreach (var category in Model.CategoryList)
+		{
+			var filteredPasswords = Model.BankAccountList.Where(x => x.CategoryId == category.Id);
+
+			<div class="card mb-3" role="alert" data-toggle="collapse" data-target="#grid-collapse-@category.Id" aria-expanded="true" aria-controls="grid-collapse-@category.Id" aria-label="@category.Name">
+				<div class="card-header cp">
+					<i class="far fa-folder"></i> @category.Name (@filteredPasswords.Count())
+				</div>
+			</div>
+			<div class="collapse show mt-2" id="grid-collapse-@category.Id">
+				<div id="grid-list" class="grid">
+					@foreach (var item in filteredPasswords)
+					{
+						<div class="item" data-itemid="@item.Id">
+							<div class="card h-100">
+								<div class="card-body">
+									<div class="hover-area mb-2">
+										<div class="custom-control custom-checkbox position-absolute">
+											<input class="custom-control-input" type="checkbox" name="ItemId" id="pwd-check-@(item.Id)" value="@item.Id">
+											<label class="custom-control-label cp" for="pwd-check-@(item.Id)"></label>
+										</div>
+										<div class="icon">
+											<i class="fas fa-university fa-4x"></i>
+										</div>
+										<span class="h6 card-title d-block">@item.Name</span>
+										<span class="card-subtitle d-block text-muted">@item.BankNameTemp</span>
+									</div>
+								</div>
+								<footer class="card-footer bg-white">
+									<div class="d-flex align-items-center">
+										<div class="ml-auto">
+											<ul class="list-inline ml-auto mb-0">
+												<li class="list-inline-item mr-2">
+													<a class="btn btn-light" href="javascript:;" onclick="$.OpenModalPage('/bankAccount/@item.Id/')" aria-label="Düzenle">
+														<i class="fas fa-tools"></i>
+													</a>
+												</li>
+												<li class="list-inline-item">
+													<a class="btn btn-light" href="javascript:;" onclick="$.DeleteItem('/api/bankAccount/delete/', '@item.Id')" aria-label="Sil">
+														<i class="fas fa-trash-alt"></i>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</footer>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+@await Html.PartialAsync("~/Views/Shared/_AES256Information.cshtml")
+
+<div class="floating-button" onclick="$.OpenModalPage('/bankAccount/')">
+	<i class="fa fa-plus"></i>
+</div>

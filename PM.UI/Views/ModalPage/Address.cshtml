@@ -1,0 +1,132 @@
+﻿@model AddressDto
+@{
+	Layout = null;
+
+	ViewData["Title"] = Model.Id == 0 ? "Yeni Adres Ekleyin" : "Adresi Düzenleyin";
+
+	string Mode = Model.Id == 0 ? "add" : "edit";
+}
+<div class="modal-dialog modal-dialog-centered modal-lg">
+	<div class="modal-content">
+		<form id="form-crypt" action="/api/address/@Mode/" method="post" class="mb-3 js-validate needs-validation" autocomplete="off" novalidate>
+			<div class="modal-header">
+				<h5 class="modal-title"><i class="far fa-address-book"></i> @ViewData["Title"]</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-row">
+					<div class="form-group col-md-6 mb-3">
+						<label asp-for="@Model.Name">Kayıt Tanımı</label>
+						<span class="form-icon-wrapper">
+							<span class="form-icon form-icon--left">
+								<i class="fas fa-award form-icon__item"></i>
+							</span>
+							<input type="text" class="form-control form-icon-input-left" asp-for="@Model.Name" placeholder="Kayıt Tanımı" required>
+						</span>
+						<small class="form-text invalid-feedback"></small>
+					</div>
+					<div class="form-group col-md-6 mb-3">
+						<label asp-for="@Model.CategoryTemp">Kategori</label>
+						<span class="form-icon-wrapper">
+							<span class="form-icon form-icon--left">
+								<i class="fas fa-project-diagram form-icon__item"></i>
+							</span>
+							<select class="form-control form-icon-input-left" asp-for="@Model.CategoryTemp" data-placeholder="Kategori Seçimi" data-select2-init="modal">
+								<option value="0" selected>Seç veya Ekle</option>
+							</select>
+						</span>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-3 mb-3">
+						<label asp-for="@Model.Firstname">İsim</label>
+						<span class="form-icon-wrapper">
+							<span class="form-icon form-icon--left">
+								<i class="fas fa-id-badge form-icon__item"></i>
+							</span>
+							<input type="text" class="form-control form-icon-input-left" asp-for="@Model.Firstname" placeholder="İsim">
+						</span>
+						<small class="form-text invalid-feedback"></small>
+					</div>
+					<div class="form-group col-md-3 mb-3">
+						<label asp-for="@Model.Lastname">Soyisim</label>
+						<span class="form-icon-wrapper">
+							<span class="form-icon form-icon--left">
+								<i class="fas fa-id-badge form-icon__item"></i>
+							</span>
+							<input type="text" class="form-control form-icon-input-left" asp-for="@Model.Lastname" placeholder="Soyisim">
+						</span>
+						<small class="form-text invalid-feedback"></small>
+					</div>
+					<div class="form-group col-md-6 mb-3">
+						<label asp-for="@Model.Email">Email</label>
+						<span class="form-icon-wrapper">
+							<span class="form-icon form-icon--left">
+								<i class="fas fa-at form-icon__item"></i>
+							</span>
+							<input type="email" class="form-control form-icon-input-left" asp-for="@Model.Email" placeholder="Email">
+						</span>
+						<small class="form-text invalid-feedback"></small>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6 mb-4">
+						<label asp-for="@Model.Address"><i class="fas fa-map-marker-alt"></i> Adres</label>
+						<textarea asp-for="@Model.Address" class="form-control" rows="3" placeholder="Adres" aria-describedby="Adres" required></textarea>
+						<small class="form-text invalid-feedback"></small>
+					</div>
+
+					<div class="form-group col-md-6 mb-4">
+						<label asp-for="@Model.Note"><i class="far fa-sticky-note"></i> Not</label>
+						<textarea asp-for="@Model.Note" class="form-control" rows="3" placeholder="Not" aria-describedby="Not"></textarea>
+						<small class="form-text invalid-feedback"></small>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title pb-2 border-bottom"><i class="fas fa-sliders-h"></i> Seçenekler</h5>
+						<div class="form-row mt-3">
+							<div class="form-group col-md-6 mb-4">
+								<label class="d-flex align-items-center justify-content-start">
+									<div class="form-toggle">
+										<input type="checkbox" asp-for="@Model.PasswordReprompt">
+										<div class="form-toggle__item">
+											<i class="fa" data-check-icon="&#xf00c" data-uncheck-icon="&#xf00d"></i>
+										</div>
+									</div>
+									<span class="form-label-text cp">İşlemler için parola iste</span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer d-flex align-items-center">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+					<i class="fas fa-times"></i> Kapat
+				</button>
+				<button type="submit" class="btn btn-primary ml-auto">
+					<i class="far fa-save"></i> Kaydet
+				</button>
+			</div>
+			<input type="hidden" asp-for="@Model.Id" />
+			@Html.AntiForgeryToken()
+		</form>
+	</div>
+</div>
+<script defer>
+
+	(function () {
+		"use strict"
+
+		const categoryId = '#CategoryTemp';
+
+		$.GetCategoryList(categoryId, @Model.CategoryId);
+	})()
+
+</script>

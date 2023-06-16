@@ -1,0 +1,46 @@
+﻿@model HeaderViewComponent
+
+<header class="u-header fixed-top">
+	<div class="u-header-left">
+		<a class="u-header-logo" href="/" url-push="true">
+			<img class="u-logo-desktop" src="/img/logo.png" width="200" height="55" alt="@ViewData["CompanyName"]" aria-label="Logo">
+			<img class="img-fluid u-logo-mobile" src="/img/blank.gif" data-src="/img/logo-mobile.png" width="50" alt="@ViewData["CompanyName"]" fetchpriority="low" loading="lazy" aria-label="Logo">
+		</a>
+	</div>
+
+	<div class="u-header-middle">
+		<a class="js-sidebar-invoker u-sidebar-invoker" href="#!"
+		   data-is-close-all-except-this="true"
+		   data-target="#sidebar" aria-label="Menu Collapse">
+			<i class="fa fa-bars u-sidebar-invoker__icon--open"></i>
+			<i class="fa fa-times u-sidebar-invoker__icon--close"></i>
+		</a>
+
+		<div class="u-header-search"
+			 data-search-mobile-invoker="#headerSearchMobileInvoker"
+			 data-search-target="#headerSearch">
+			<a id="headerSearchMobileInvoker" class="btn btn-link input-group-prepend u-header-search__mobile-invoker" href="#!">
+				<i class="fa fa-search"></i>
+			</a>
+
+			<div id="headerSearch" class="u-header-search-form">
+				<span class="form-icon-wrapper search-width">
+					<span class="form-icon form-icon--left">
+						<i class="fas fa-search form-icon__item"></i>
+					</span>
+					<span class="form-icon form-icon--right cp" data-trigger="search-clear" style="display:none;">
+						<i class="fas fa-times form-icon__item"></i>
+					</span>
+					<input id="searchBox" class="form-control form-icon-input-left" type="email" placeholder="Arama yapın" aria-describedby="Arama">
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="u-header-right">
+		@await Component.InvokeAsync("HeaderActivities")
+		@await Component.InvokeAsync("HeaderNotify")
+		@await Component.InvokeAsync("HeaderApps")
+		@await Component.InvokeAsync("HeaderUser")
+	</div>
+</header>

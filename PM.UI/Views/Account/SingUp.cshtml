@@ -1,0 +1,124 @@
+﻿@model RegisterDto
+@{
+	ViewData["Title"] = "Kayıt Ol";
+
+	if (Context.Request.QueryString.Value is not null && Context.Request.QueryString.Value.Contains("?hash"))
+	{
+		Layout = null;
+	}
+}
+
+<form id="form-identity" action="/api/user/add/" method="post" autocomplete="off" class="mb-3 js-validate needs-validation" novalidate>
+	<div class="mb-3">
+		<h1 class="h2">Ücretsiz hesap oluşturun!</h1>
+		<p class="small">Kayıtlı e-posta adresiniz ve şifrenizle kontrol panelinize giriş yapın.</p>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-md-6 mb-3">
+			<label asp-for="@Model.Name">Adınız</label>
+			<input type="text" class="form-control" asp-for="@Model.Name" placeholder="Adınız" required>
+			<small class="form-text invalid-feedback"></small>
+		</div>
+		<div class="form-group col-md-6 mb-3">
+			<label asp-for="@Model.Surname">Soyadınız</label>
+			<input type="text" class="form-control" asp-for="@Model.Surname" placeholder="Soyadınız" required>
+			<small class="form-text invalid-feedback"></small>
+		</div>
+	</div>
+
+	<div class="form-group mb-3">
+		<label asp-for="@Model.Email">E-posta Adresi</label>
+		<input class="form-control" type="email" asp-for="@Model.Email" placeholder="e-posta@example.com" required autocomplete="new-email">
+		<small class="form-text invalid-feedback"></small>
+	</div>
+
+	<div class="form-group mb-3">
+		<div class="d-flex align-items-center">
+			<label asp-for="@Model.Password">Şifre</label>
+			<button type="button" class="btn btn-light btn-sm ml-auto" style="margin-top: -10px;" data-event="generate-password" data-target="#Password">
+				Şifre Üret <i class="fas fa-key ml-2"></i>
+			</button>
+		</div>
+		<span class="form-icon-wrapper">
+			<span class="form-icon form-icon--right cp" data-toggle-sh="Password">
+				<i class="fas fa-eye form-icon__item"></i>
+			</span>
+			<input class="form-control" type="password" asp-for="@Model.Password" placeholder="Şifreniz" required autocomplete="new-password">
+		</span>
+		<small class="form-text invalid-feedback"></small>
+		<div id="password-strength-status"></div>
+		<ul class="password-info" id="passwordCriterion">
+			<li data-criterion="length" class="invalid">En az 12 karakter uzunluğunda</li>
+			<li data-criterion="capital" class="invalid">En az bir büyük harf</li>
+			<li data-criterion="small" class="invalid">En az bir küçük harf</li>
+			<li data-criterion="number" class="invalid">En az bir sayı</li>
+		</ul>
+	</div>
+
+	<div class="form-group mb-4">
+		<label asp-for="@Model.ConfirmPassword">Şifre Tekrar</label>
+		<span class="form-icon-wrapper">
+			<span class="form-icon form-icon--right cp" data-toggle-sh="ConfirmPassword">
+				<i class="fas fa-eye form-icon__item"></i>
+			</span>
+			<input class="form-control" type="password" asp-for="@Model.ConfirmPassword" placeholder="Şifre Tekrar" required>
+		</span>
+		<small class="form-text invalid-feedback"></small>
+	</div>
+
+	<div class="custom-control custom-checkbox mb-4">
+		<input id="agreement" class="custom-control-input" name="agreement" type="checkbox" required>
+		<label class="d-block custom-control-label" for="agreement"><a href="#!" data-toggle="modal" data-target="#exampleModal">Kullanım koşullarını</a> kabul ediyorum.</label>
+	</div>
+
+	<button class="btn btn-primary btn-block" type="submit">Kayıt ol</button>
+	@Html.AntiForgeryToken()
+</form>
+
+<p>
+	Zaten hesabınız var mı? <a href="/account/login/" url-push="true">Oturum açın</a>
+</p>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-user-shield text-success"></i> Kullanım Koşulları
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae blandit libero. Duis rhoncus tincidunt nibh, faucibus fringilla risus eleifend in. Vestibulum dapibus lacinia tortor at mollis. Sed erat erat, dapibus in consectetur eget, rhoncus ut arcu. Curabitur egestas nec sapien quis imperdiet. Suspendisse gravida augue vel pharetra dictum. Donec ligula urna, luctus ut urna vitae, tristique pharetra libero. Nullam eget massa arcu. In venenatis tincidunt fringilla. Etiam euismod sit amet lacus sit amet lacinia.
+				</p>
+				<p>
+					Nam ex mauris, sodales nec tortor eget, fermentum volutpat dui. Cras et dolor quis mauris faucibus sodales id condimentum enim. Phasellus luctus, turpis et fringilla egestas, purus dui sollicitudin libero, et laoreet arcu lorem in mauris. Aenean eu lobortis orci. Proin eget pulvinar elit. Pellentesque id lectus mi. Curabitur eu vestibulum enim, ut viverra leo. Vestibulum consectetur ultrices dolor ut finibus. Proin sit amet sem suscipit, consectetur neque ut, convallis nisl. Aenean vel augue neque. Donec maximus faucibus tellus eu molestie.
+				</p>
+				<p>
+					Morbi magna ligula, hendrerit at rutrum at, accumsan vitae nunc. Sed placerat non felis vel placerat. Vivamus maximus pellentesque luctus. Proin malesuada vestibulum arcu, viverra dapibus erat imperdiet ac. Nulla blandit eleifend dui eu iaculis. Mauris eu pharetra neque, at commodo sem. Aenean scelerisque nisi vel ullamcorper elementum. Maecenas eget justo at elit aliquam rhoncus. Nulla risus dui, ultricies at lobortis a, imperdiet at ex. Aliquam feugiat ultricies pulvinar. Etiam malesuada orci in erat mollis ullamcorper. Aliquam posuere, neque quis luctus condimentum, diam nulla pulvinar ex, quis scelerisque ex sapien eu ante. Morbi feugiat lorem et tortor mollis ornare. Aliquam rhoncus consectetur mi sit amet cursus.
+				</p>
+				<p>
+					Mauris posuere tristique enim, ut volutpat lorem pretium vitae. Donec commodo, tellus ac porta tempor, magna arcu cursus mauris, vitae ultrices arcu purus nec tortor. Vivamus vehicula ac leo quis posuere. Suspendisse molestie lorem turpis, at mattis lectus varius facilisis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum posuere libero pellentesque, rhoncus mi vel, venenatis dolor. Etiam non bibendum risus, eget ultrices enim. Donec tincidunt dui iaculis magna accumsan dictum. Maecenas sit amet nulla at urna hendrerit rutrum ut at turpis. Nulla nec dui lacinia, rhoncus lacus vitae, finibus nisl. Aliquam vel aliquam nisi, non molestie enim. Nam a massa vehicula velit auctor laoreet in ut libero. Vestibulum aliquet, risus sed egestas commodo, erat mauris rutrum ex, sed facilisis purus nibh a ante. Aliquam mollis porta turpis ut imperdiet. Quisque orci odio, tempus eu orci eget, aliquam eleifend ipsum.
+				</p>
+				<p>
+					Vivamus ornare ante leo, fermentum iaculis justo tempor in. Suspendisse dapibus cursus vulputate. Morbi congue leo tellus, et hendrerit velit mattis vitae. Proin interdum libero a ultrices sodales. Curabitur sit amet urna ut ante laoreet tincidunt. Pellentesque ligula mi, fermentum vel leo semper, hendrerit efficitur dui. Nunc et massa vitae ex bibendum aliquam vitae ac velit. Proin aliquam mattis felis nec lacinia. Sed sagittis ligula et risus fringilla vehicula id nec velit. Mauris et elit ante. Vivamus a dictum dui. Duis eget ex in purus rhoncus ornare. Nullam pharetra ullamcorper vestibulum. Morbi quis nunc vitae dui scelerisque pellentesque vel eu tortor. Morbi efficitur justo ut ligula tempus, et rhoncus ante congue. Curabitur interdum, sapien nec fermentum convallis, augue diam tincidunt massa, eu faucibus eros augue sed lorem.
+				</p>
+				<p>
+					Maecenas porta, lacus eu dignissim iaculis, quam orci congue diam, vel lacinia erat metus in quam. Aenean cursus, ligula at malesuada luctus, erat nunc malesuada est, tincidunt aliquam nunc lacus id diam. Donec ullamcorper urna pretium ullamcorper finibus. Vivamus nibh lorem, suscipit at enim eget, posuere cursus arcu. Nullam eu risus tincidunt, aliquet odio et, viverra nulla. Ut in massa ut nunc lacinia vehicula. Proin in elit nibh. Fusce faucibus porta pharetra. Nam luctus magna vel erat vestibulum, varius eleifend nibh efficitur. Phasellus bibendum odio ante, et facilisis tellus luctus ac.
+				</p>
+				<p>
+					Etiam condimentum orci vitae elit pellentesque, eget venenatis odio gravida. Nullam vestibulum nec purus ac porttitor. Nam porta pharetra congue. Morbi porta enim id orci euismod porta. Pellentesque quis dictum mauris. Mauris sodales eget magna a sodales. Aenean laoreet efficitur ipsum at maximus. Suspendisse vestibulum gravida fermentum. Aliquam porttitor urna ornare, bibendum erat ut, scelerisque ligula. Suspendisse ipsum risus, lacinia elementum ligula et, lacinia pulvinar nibh. In ullamcorper, quam at lobortis luctus, felis tellus tincidunt risus, tincidunt gravida dolor lacus ut mauris. Vivamus velit tellus, accumsan in euismod sit amet, convallis non purus.
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal" data-target="agreement-check">
+					<i class="fas fa-check"></i> Onaylıyorum
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

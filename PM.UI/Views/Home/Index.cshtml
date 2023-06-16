@@ -1,0 +1,41 @@
+﻿@{
+	ViewData["Title"] = "Dashboard";
+
+	if (Context.Request.QueryString.Value is not null && Context.Request.QueryString.Value.Contains("?hash"))
+	{
+		Layout = null;
+	}
+}
+
+<div class="mb-3">
+	<div class="d-flex align-items-center">
+		<nav aria-label="breadcrumb" class="mr-3">
+			<h1 class="h6" data-value="title">@ViewData["Title"]</h1>
+		</nav>
+		<div class="ml-auto">
+			<div class="d-flex justify-content-center">
+				<a class="btn btn-outline-secondary mr-2" href="/crypt/password/" url-push="true" aria-label="Şifre">
+					<i class="fas fa-key"></i>
+				</a>
+				<a class="btn btn-outline-secondary mr-2" href="/crypt/note/" url-push="true" aria-label="Not">
+					<i class="far fa-sticky-note"></i>
+				</a>
+				<a class="btn btn-outline-secondary mr-2" href="/crypt/address/" url-push="true" aria-label="Adres">
+					<i class="far fa-address-book"></i>
+				</a>
+				<a class="btn btn-outline-secondary mr-2" href="/crypt/payment-card/" url-push="true" aria-label="Kart">
+					<i class="far fa-credit-card"></i>
+				</a>
+				<a class="btn btn-outline-secondary" href="/crypt/bank-account/" url-push="true" aria-label="Banka">
+					<i class="fas fa-university"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+@await Component.InvokeAsync("DashboardMeter")
+
+@await Component.InvokeAsync("DashboardGraphic")
+
+

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="@(Helpers.LanguageHelper.GetCurrentTwoLetterISOLanguageName())" class="no-js">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@ViewData["Title"] | @ViewData["CompanyName"]</title>
+	<meta name="description" content="Gökhan Sevim">
+	<meta name="theme-color" content="#222222" />
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="1">
+	<meta name="robots" content="follow,index">
+	<meta name="googlebot" content="follow,index">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="dns-prefetch preconnect" href="//cdnjs.cloudflare.com">
+	<link rel="dns-prefetch preconnect" href="//cdn.jsdelivr.net">
+	<environment names="Development">
+		<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+		<link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+		<link rel="stylesheet" href="~/lib/select2/css/select2.css" />
+		<link rel="stylesheet" href="~/lib/franklx/select2-bootstrap4-theme/dist/select2-bootstrap4.css" />
+		<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	</environment>
+	<environment names="Staging,Production">
+		<link rel="stylesheet preload" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" as="style" />
+		<link rel="stylesheet preload" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" as="style" />
+		<link rel="stylesheet preload" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" as="style" />
+		<link rel="stylesheet preload" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" as="style" />
+		<link rel="stylesheet preload" href="//cdn.jsdelivr.net/npm/@@franklx/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" as="style" />
+		<link rel="stylesheet preload" href="~/css/site.min.css" asp-append-version="true" as="style" />
+	</environment>
+	<link rel="manifest" href="/manifest.webmanifest">
+	@await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+	@switch (ViewContext.RouteData.Values["controller"].ToString().ToLower())
+	{
+		case "account":
+			<main class="container-fluid w-100" role="main">
+				<div class="row">
+					<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center bg-white mnh-100vh">
+						<a class="u-login-form py-3 mb-auto" href="/account/login/">
+							<img class="img-fluid" src="/img/blank.gif" data-src="/img/logo.png" fetchpriority="hight" loading="lazy" width="160" alt="@ViewData["CompanyName"]">
+						</a>
+						<div id="render-body" class="u-login-form">
+							@RenderBody()
+						</div>
+						<div class="u-login-form text-muted py-3 mt-auto">
+							<small><i class="far fa-question-circle mr-1"></i> Sorun yaşıyorsanız lütfen bizimle <a href="//linkedin.com/in/gokhansevim/" target="_blank">iletişime geçin</a>.</small>
+						</div>
+					</div>
+					<div class="col-lg-6 d-none d-lg-flex flex-column align-items-center justify-content-center bg-light">
+						<img class="img-fluid position-relative u-z-index-3 mx-5" src="/img/blank.gif" data-src="/svg/mockups/mockup.svg" alt="" fetchpriority="low" loading="lazy">
+						<figure class="u-shape u-shape--top-right u-shape--position-5">
+							<img src="/img/blank.gif" data-src="/svg/shapes/shape-1.svg" alt="" fetchpriority="low" loading="lazy">
+						</figure>
+						<figure class="u-shape u-shape--center-left u-shape--position-6">
+							<img src="/img/blank.gif" data-src="/svg/shapes/shape-2.svg" alt="" fetchpriority="low" loading="lazy">
+						</figure>
+						<figure class="u-shape u-shape--center-right u-shape--position-7">
+							<img src="/img/blank.gif" data-src="/svg/shapes/shape-3.svg" alt="" fetchpriority="low" loading="lazy">
+						</figure>
+						<figure class="u-shape u-shape--bottom-left u-shape--position-8">
+							<img src="/img/blank.gif" data-src="/svg/shapes/shape-4.svg" alt="" fetchpriority="low" loading="lazy">
+						</figure>
+					</div>
+				</div>
+			</main>
+			break;
+		default:
+			@await Component.InvokeAsync("Header")
+			<main class="u-main" role="main">
+				@await Component.InvokeAsync("Sidebar")
+				<div class="u-content">
+					<div id="render-body" class="u-body">
+						@RenderBody()
+					</div>
+					@await Component.InvokeAsync("Footer")
+				</div>
+			</main>
+			break;
+	}
+	<div class="modal fade" id="globalModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="globalModalLabel" aria-hidden="true"></div>
+	<environment names="Development">
+		<script src="~/lib/jquery/jquery.js"></script>
+		<script src="~/lib/jquery-migrate/jquery-migrate.js"></script>
+		<script src="~/lib/jquery_lazyload/lazyload.js" defer></script>
+		<script src="~/lib/bootstrap/js/bootstrap.bundle.js" defer></script>
+		<script src="~/lib/jquery-validate/jquery.validate.js" defer></script>
+		<script src="~/lib/jquery-validate/localization/messages_@(Helpers.LanguageHelper.GetCurrentTwoLetterISOLanguageName()).js" defer></script>
+		<script src="~/lib/toastr.js/toastr.min.js" defer></script>
+		<script src="~/lib/select2/js/select2.js" defer></script>
+		<script src="~/lib/chart.js/chart.js" defer></script>
+		<script src="~/js/sidebar-nav.js" defer></script>
+		<script src="~/js/dashboard.js" defer></script>
+		<script src="~/js/url-routing.js" defer></script>
+		<script src="~/js/site.js" asp-append-version="true" defer></script>
+	</environment>
+	<environment names="Staging,Production">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.4.1/jquery-migrate.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/2.0.0-rc.2/lazyload.min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/localization/messages_@(Helpers.LanguageHelper.GetCurrentTwoLetterISOLanguageName()).min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" defer></script>
+		<script src="~/js/sidebar-nav.min.js" defer></script>
+		<script src="~/js/dashboard.min.js" defer></script>
+		<script src="~/js/url-routing.min.js" defer></script>
+		<script src="~/js/site.min.js" asp-append-version="true" defer></script>
+	</environment>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

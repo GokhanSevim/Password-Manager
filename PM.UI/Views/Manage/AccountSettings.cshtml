@@ -1,0 +1,18 @@
+﻿@{
+	ViewData["Title"] = "Hesap Ayarları";
+
+	if (Context.Request.QueryString.Value is not null && Context.Request.QueryString.Value.Contains("?hash"))
+	{
+		Layout = null;
+	}
+}
+
+<div class="mb-4">
+	<nav aria-label="breadcrumb">
+		<h1 class="h6" data-value="title">@ViewData["Title"]</h1>
+		<ol class="breadcrumb bg-transparent small p-0">
+			<li class="breadcrumb-item"><a href="/" url-push="true">Dashboard</a></li>
+			<li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+		</ol>
+	</nav>
+</div>

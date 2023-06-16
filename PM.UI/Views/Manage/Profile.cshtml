@@ -1,0 +1,68 @@
+﻿@model ManageController
+@{
+	ViewData["Title"] = "Profil";
+
+	if (Context.Request.QueryString.Value is not null && Context.Request.QueryString.Value.Contains("?hash"))
+	{
+		Layout = null;
+	}
+}
+
+<div class="mb-4">
+	<nav aria-label="breadcrumb">
+		<h1 class="h6" data-value="title">@ViewData["Title"]</h1>
+		<ol class="breadcrumb bg-transparent small p-0">
+			<li class="breadcrumb-item"><a href="/" url-push="true">Dashboard</a></li>
+			<li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+		</ol>
+	</nav>
+</div>
+
+<div class="card mb-4">
+	<div class="card-body">
+		<div class="row">
+			<div class="col-md-4 border-md-right border-light text-center">
+				<img class="img-fluid rounded-circle mb-3" src="/img/blank.gif" data-src="@Model.CurrentUser.Avatar" alt="" width="84" fetchpriority="low" loading="lazy">
+
+				<h4 class="mb-2">@Model.CurrentUser.FullName</h4>
+				<h6 class="text-muted mb-4">@Model.CurrentUser.Email</h6>
+				<h6 class="text-muted mb-4">@Model.CurrentUser.PhoneNumber</h6>
+				<h6 class="text-muted mb-4">@Model.CurrentUser.CreationDate.ToLongDateString()</h6>
+
+				<ul class="list-inline mb-4">
+					<li class="list-inline-item mr-3">
+						<a class="link-muted" href="#!">
+							<i class="fab fa-facebook"></i>
+						</a>
+					</li>
+					<li class="list-inline-item mr-3">
+						<a class="link-muted" href="#!">
+							<i class="fab fa-twitter"></i>
+						</a>
+					</li>
+					<li class="list-inline-item mr-3">
+						<a class="link-muted" href="#!">
+							<i class="fab fa-slack"></i>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="link-muted" href="#!">
+							<i class="fab fa-linkedin-in"></i>
+						</a>
+					</li>
+				</ul>
+
+				<a class="btn btn-primary mb-2" href="mailto:@Model.CurrentUser.Email">
+					<i class="fa fa-envelope mr-2"></i> Mesaj Gönder
+				</a>
+			</div>
+
+			<div class="col-md-8">
+				<h5 class="card-title">Hakkımda</h5>
+				<p class="mb-5">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut ante nibh. Aliquam varius libero ut magna pretium viverra. Vivamus in laoreet eros, id pellentesque massa. Etiam tempus blandit urna, id scelerisque velit facilisis quis. Suspendisse potenti. Maecenas et lacus gravida, blandit ligula non, ultricies tortor. Cras vitae congue massa, vitae tristique justo. Nulla gravida purus nec nisl laoreet fermentum non ac tortor. Morbi laoreet iaculis eros in pellentesque. Vivamus sed mi eget massa sollicitudin iaculis. Mauris vitae dignissim enim. Donec sollicitudin nec lacus hendrerit scelerisque. Nam nisl orci, suscipit a porttitor at, pulvinar tincidunt sem. Praesent sit amet ipsum nec mi tempus volutpat.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
