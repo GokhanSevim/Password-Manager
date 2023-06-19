@@ -12,23 +12,23 @@ namespace DependencyResolvers.Microsoft.PostgreSQL
 	{
 		public static void Configure(IServiceCollection services)
 		{
-			services.AddSingleton<ISmtpSettingsDal, EfSmtpSettingsDal>();
-			services.AddSingleton<IAddressesDal, EfAddressesDal>();
-			services.AddSingleton<IBankAccountsDal, EfBankAccountsDal>();
-			services.AddSingleton<ICategoriesDal, EfCategoriesDal>();
-			services.AddSingleton<INotesDal, EfNotesDal>();
-			services.AddSingleton<IPasswordsDal, EfPasswordsDal>();
-			services.AddSingleton<IPaymentCardsDal, EfPaymentCardsDal>();
+			services.AddScoped<ISmtpSettingsDal, EfSmtpSettingsDal>();
+			services.AddScoped<IAddressesDal, EfAddressesDal>();
+			services.AddScoped<IBankAccountsDal, EfBankAccountsDal>();
+			services.AddScoped<ICategoriesDal, EfCategoriesDal>();
+			services.AddScoped<INotesDal, EfNotesDal>();
+			services.AddScoped<IPasswordsDal, EfPasswordsDal>();
+			services.AddScoped<IPaymentCardsDal, EfPaymentCardsDal>();
 
-			services.AddSingleton<IEMailServices, EMailManager>();
+			services.AddScoped<IEMailServices, EMailManager>();
 			services.AddScoped<IAccountService, AccountManager>();
-			services.AddSingleton<ISmtpSettingsService, SmtpSettingsManager>();
-			services.AddSingleton<IAddressService, AddressManager>();
-			services.AddSingleton<IBankAccountsService, BankAccountsManager>();
-			services.AddSingleton<ICategoryService, CategoryManager>();
-			services.AddSingleton<IPaymentCardsService, PaymentCardsManager>();
-			services.AddSingleton<INotesService, NotesManager>();
-			services.AddSingleton<IPasswordsService, PasswordsManager>();
+			services.AddScoped<ISmtpSettingsService, SmtpSettingsManager>();
+			services.AddScoped<IAddressService, AddressManager>();
+			services.AddScoped<IBankAccountsService, BankAccountsManager>();
+			services.AddScoped<ICategoryService, CategoryManager>();
+			services.AddScoped<IPaymentCardsService, PaymentCardsManager>();
+			services.AddScoped<INotesService, NotesManager>();
+			services.AddScoped<IPasswordsService, PasswordsManager>();
 		}
 	}
 }
